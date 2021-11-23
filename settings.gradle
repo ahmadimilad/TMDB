@@ -3,8 +3,42 @@ dependencyResolutionManagement {
     repositories {
         google()
         mavenCentral()
-        jcenter() // Warning: this repository is going to shut down soon
     }
 }
+
 rootProject.name = "TMDB"
-include ':app'
+include ':presentation'
+include ':data'
+include ':domain'
+
+def log(message) {
+    logger.lifecycle("${message}")
+}
+
+//region get property from 'local.properties'
+/*
+example:
+    gradle.hasProperty("localProperties.debuggable") //to check has property in local.properties
+    gradle.getProperty("localProperties.debuggable") //to get value from property in local.properties
+ */
+log("=============================================================")
+Properties localProperties = null
+if (file('local.properties').canRead()) {
+    localProperties = new Properties()
+    localProperties.load(file('local.properties').newDataInputStream())
+    log('================== Loaded local.properties ==================')
+} else {
+    log('======= Missing local.properties =================')
+}
+
+if (localProperties != null) {
+    log("-------------------------------------------------------------")
+
+    localProperties.each { prop ->
+        gradle.ext.set("localProperties.${prop.key}", prop.value)
+
+        log("localProperties.${prop.key}: ${prop.value}")
+    }
+    log("=============================================================")
+}
+//endregion

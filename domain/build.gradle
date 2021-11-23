@@ -1,0 +1,13 @@
+plugins {
+    id 'kotlin'
+}
+
+dependencies {
+    implementation "org.jetbrains.kotlin:kotlin-stdlib:$kotlin_version"
+
+    implementation 'javax.inject:javax.inject:1'
+
+    //Test : Unit Test
+    testImplementation "junit:junit:$jUnit_version"
+    testImplementation "org.mockito:mockito-core:$mockito_version"
+}
