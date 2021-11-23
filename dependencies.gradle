@@ -6,6 +6,7 @@ ext {
 
     //Kotlin
     kotlinCore_version = '1.7.0'
+    coroutines_version = '1.5.0'
 
     //App dependencies
     androidX_LegacySupport_version = '1.0.0'
