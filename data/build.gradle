@@ -39,8 +39,13 @@ dependencies {
     implementation project(path: ':domain')
 
     //Test : Unit Test
-    testImplementation "junit:junit:${jUnit_version}"
+    testImplementation "junit:junit:$jUnit_version"
     testImplementation "org.mockito:mockito-core:$mockito_version"
+    androidTestImplementation "androidx.test.ext:junit-ktx:$jUnitExt_version"
+
+    // Coroutines
+    implementation "org.jetbrains.kotlinx:kotlinx-coroutines-core:$coroutines_version"
+    implementation "org.jetbrains.kotlinx:kotlinx-coroutines-android:$coroutines_version"
 
     //javax.inject (Dependency Injection)
     implementation 'javax.inject:javax.inject:1'
@@ -48,7 +53,6 @@ dependencies {
     //Database -> Room
     implementation "androidx.room:room-ktx:$room_version"
     implementation "androidx.room:room-runtime:$room_version"
-    implementation "androidx.room:room-rxjava3:$room_version"
     kapt "androidx.room:room-compiler:$room_version"
 
     //Network -> Retrofit
