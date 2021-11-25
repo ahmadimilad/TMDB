@@ -1,12 +1,12 @@
 ext {
     //Android
     android_CompileSdk_version = 31
-    android_MinSdk_version = 21
+    android_MinSdk_version = 17
     android_TargetSdk_version = 31
 
     //Kotlin
     kotlinCore_version = '1.7.0'
-    coroutines_version = '1.5.0'
+    coroutines_version = '1.5.2'
 
     //App dependencies
     androidX_LegacySupport_version = '1.0.0'
@@ -35,4 +35,6 @@ ext {
     //Developer Libs
     timberـversion = '5.0.1'
     leakcanaryـversion = '2.7'
+
+    javaxInjectVersion = '1'
 }

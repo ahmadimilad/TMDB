@@ -1,3 +1,11 @@
 <resources>
     <string name="app_name">TMDB</string>
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="poster">poster</string>
+    <string name="retry">RETRY</string>
+    <string name="unknown_exception">Unknown Error!</string>
+    <string name="host_exception">
+        <br>Network is unavailable!\n</br>
+        <br>Please check your network connections.</br>
+    </string>
 </resources>
