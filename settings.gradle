@@ -42,3 +42,5 @@ if (localProperties != null) {
     log("=============================================================")
 }
 //endregion
+include ':data_local'
+include ':data_remote'

@@ -1,0 +1,61 @@
+plugins {
+    id 'com.android.library'
+    id 'kotlin-android'
+    id 'kotlin-parcelize'
+    id 'kotlin-kapt'
+}
+
+android {
+    compileSdk android_CompileSdk_version
+
+    defaultConfig {
+        minSdk android_MinSdk_version
+        targetSdk android_TargetSdk_version
+
+        testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
+        consumerProguardFiles "consumer-rules.pro"
+    }
+
+    buildTypes {
+        debug
+        release
+    }
+
+    compileOptions {
+        sourceCompatibility JavaVersion.VERSION_1_8
+        targetCompatibility JavaVersion.VERSION_1_8
+    }
+
+    testOptions {
+        unitTests.returnDefaultValues = true
+    }
+
+    android.sourceSets.all {
+        java.srcDir("src/$name/kotlin")
+    }
+}
+
+dependencies {
+    implementation project(path: ':domain')
+    implementation project(path: ':data')
+
+    implementation "org.jetbrains.kotlin:kotlin-stdlib:$kotlin_version"
+
+    //javax.inject (Dependency Injection)
+    implementation "javax.inject:javax.inject:$javaxInjectVersion"
+
+    //Test : Unit Test
+    testImplementation "junit:junit:$jUnit_version"
+    testImplementation "org.mockito:mockito-core:$mockito_version"
+    androidTestImplementation "androidx.test.ext:junit-ktx:$jUnitExt_version"
+
+    implementation 'androidx.lifecycle:lifecycle-livedata-ktx:2.4.0'
+
+    //Database -> Room
+    implementation "androidx.room:room-runtime:$room_version"
+    kapt "androidx.room:room-compiler:$room_version"
+    implementation "androidx.room:room-ktx:$room_version"
+
+    //Developer Tools
+    implementation "com.jakewharton.timber:timber:$timberـversion"
+}

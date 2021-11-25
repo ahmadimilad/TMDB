@@ -2,6 +2,7 @@ plugins {
     id 'com.android.application'
     id 'kotlin-android'
     id 'kotlin-kapt'
+    id 'kotlin-parcelize'
     id 'androidx.navigation.safeargs.kotlin'
     id 'dagger.hilt.android.plugin'
 }
@@ -20,13 +21,11 @@ android {
         vectorDrawables.useSupportLibrary = true
 
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
-
     }
 
     def releaseTemplate = {
         shrinkResources true
         minifyEnabled true
-        buildConfigField "boolean", "USE_RELEASE_VERSIONING", "true"
 
         proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
 
@@ -45,20 +44,20 @@ android {
             shrinkResources false
             versionNameSuffix "-d"
 
-            buildConfigField("String", "API_BASE_URL", "\"https://api.themoviedb.org/4/\"")
-            buildConfigField("String", "API_ACCESS_TOKEN", "\"eyJhbGciOiJIUzI1NiJ9.eyJhdWQiOiJjYzE0NjkxNjkwMTcwYjJhNTFjZDdjZGNmM2QzNDQ3OCIsInN1YiI6IjVkNmNjZDczMjBlY2FmMDAxMDI5ZWMxNCIsInNjb3BlcyI6WyJhcGlfcmVhZCJdLCJ2ZXJzaW9uIjoxfQ.v8sy-isXcAdrpBsm_wDW18QRTZLK5TAOMSQVPHirMxI\"")
+            buildConfigField("String", "API_BASE_URL", "\"https://api.themoviedb.org/3/\"")
+            buildConfigField("String", "API_KEY", "\"cc14691690170b2a51cd7cdcf3d34478\"")
         }
         release releaseTemplate >> {
             versionNameSuffix ""
 
-            buildConfigField("String", "API_BASE_URL", "\"https://api.themoviedb.org/4/\"")
-            buildConfigField("String", "API_ACCESS_TOKEN", "\"eyJhbGciOiJIUzI1NiJ9.eyJhdWQiOiJjYzE0NjkxNjkwMTcwYjJhNTFjZDdjZGNmM2QzNDQ3OCIsInN1YiI6IjVkNmNjZDczMjBlY2FmMDAxMDI5ZWMxNCIsInNjb3BlcyI6WyJhcGlfcmVhZCJdLCJ2ZXJzaW9uIjoxfQ.v8sy-isXcAdrpBsm_wDW18QRTZLK5TAOMSQVPHirMxI\"")
+            buildConfigField("String", "API_BASE_URL", "\"https://api.themoviedb.org/3/\"")
+            buildConfigField("String", "API_KEY", "\"cc14691690170b2a51cd7cdcf3d34478\"")
         }
     }
 
     buildFeatures {
-        dataBinding = true
-//        viewBinding = true
+        dataBinding  true
+        viewBinding  true
     }
 
     compileOptions {
@@ -118,6 +117,8 @@ dependencies {
     implementation project(path: ':data')
     implementation project(path: ':domain')
     implementation "org.jetbrains.kotlin:kotlin-stdlib:$kotlin_version"
+    implementation project(path: ':data_remote')
+    implementation project(path: ':data_local')
 
     //Testing
     testImplementation "junit:junit:$jUnit_version"
@@ -152,11 +153,12 @@ dependencies {
     implementation "androidx.lifecycle:lifecycle-common-java8:$arch_version"
     implementation "androidx.lifecycle:lifecycle-livedata-ktx:$arch_version"
     implementation "androidx.lifecycle:lifecycle-viewmodel-ktx:$arch_version"
+    implementation "androidx.lifecycle:lifecycle-runtime-ktx:$arch_version"
 
     //Database -> Room
+    implementation "androidx.room:room-ktx:$room_version"
     implementation "androidx.room:room-runtime:$room_version"
     kapt "androidx.room:room-compiler:$room_version"
-    implementation "androidx.room:room-ktx:$room_version"
 
     //Network -> Retrofit
     implementation "com.squareup.retrofit2:retrofit:$retrofit_version"
