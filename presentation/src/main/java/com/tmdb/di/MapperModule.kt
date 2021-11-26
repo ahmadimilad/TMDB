@@ -1,7 +1,7 @@
 package com.tmdb.di
 
 import com.tmdb.data.local.mapper.MovieLocalDataMapper
-import com.tmdb.data.local.models.MovieLocalModel
+import com.tmdb.data.local.models.relations.MovieDetailsLocalModel
 import com.tmdb.data.mappers.MovieDataDomainMapper
 import com.tmdb.data.models.MovieDataModel
 import com.tmdb.data.remote.mapper.MovieNetworkDataMapper
@@ -26,7 +26,7 @@ abstract class MapperModule {
 
     //region Locale Mappers
     @Binds
-    abstract fun bindsMovieLocalDataMapper(mapper: MovieLocalDataMapper): Mapper<MovieLocalModel, MovieDataModel>
+    abstract fun bindsMovieLocalDataMapper(mapper: MovieLocalDataMapper): Mapper<MovieDetailsLocalModel, MovieDataModel>
     //endregion
 
     //region Data Mappers

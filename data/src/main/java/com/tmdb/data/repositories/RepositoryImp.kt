@@ -30,4 +30,19 @@ class RepositoryImp @Inject constructor(
             }
         }
     }
+
+    override suspend fun getMovieDetails(id: Int): Flow<Resource<MovieEntity>> {
+        return flow {
+            val cache = localDataSource.getMovieItem(id)
+            emit(Resource.Success(movieMapper.from(cache)))
+
+            try {
+                val data = remoteDataSource.getMovieDetails(id)
+                localDataSource.updateMovieItem(data)
+                emit(Resource.Success(movieMapper.from(data)))
+            } catch (ex: Exception) {
+                emit(Resource.Error(ex))
+            }
+        }
+    }
 }

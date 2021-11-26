@@ -2,7 +2,7 @@ package com.tmdb.data.remote.model
 
 import com.google.gson.annotations.SerializedName
 
-data class ResponseNetworkModel(
+data class MovieListResponseModel(
     @SerializedName("results")
     val results: List<MovieNetworkModel>?,
     @SerializedName("page")

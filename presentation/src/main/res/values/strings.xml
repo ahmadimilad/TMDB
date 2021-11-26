@@ -8,4 +8,5 @@
         <br>Network is unavailable!\n</br>
         <br>Please check your network connections.</br>
     </string>
+    <string name="total_rate">/10</string>
 </resources>

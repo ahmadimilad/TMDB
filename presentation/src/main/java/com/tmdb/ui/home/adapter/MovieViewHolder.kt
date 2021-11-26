@@ -1,4 +1,4 @@
-package com.tmdb.ui.home
+package com.tmdb.ui.home.adapter
 
 import com.tmdb.base.BaseViewHolder
 import com.tmdb.databinding.RowMovieItemLayoutBinding
