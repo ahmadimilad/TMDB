@@ -14,4 +14,8 @@ class RemoteDataSourceImp @Inject constructor(
     override suspend fun getMovies(page: Int): List<MovieDataModel> {
         return movieMapper.fromList(apiService.getMovies(page).results)
     }
+
+    override suspend fun getMovieDetails(page: Int): MovieDataModel {
+        return movieMapper.from(apiService.getMovieDetails(page))
+    }
 }

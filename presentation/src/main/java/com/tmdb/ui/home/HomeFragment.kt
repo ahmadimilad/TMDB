@@ -7,8 +7,11 @@ import androidx.core.view.isVisible
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.asLiveData
 import androidx.lifecycle.lifecycleScope
+import androidx.navigation.fragment.findNavController
+import com.tmdb.R
 import com.tmdb.base.BaseFragment
 import com.tmdb.databinding.FragmentHomeBinding
+import com.tmdb.ui.home.adapter.MovieAdapter
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
@@ -17,7 +20,17 @@ import kotlinx.coroutines.launch
 class HomeFragment : BaseFragment<FragmentHomeBinding>() {
 
     private val viewModel: MainViewModel by viewModels()
-    private val adapter: MovieAdapter by lazy { MovieAdapter() }
+    private val adapter: MovieAdapter by lazy {
+        MovieAdapter { movie ->
+            HomeFragmentDirections.actionHomeFragmentToDetailFragment(movie).also { action ->
+                findNavController().let { navController ->
+                    if (navController.currentDestination?.id == R.id.homeFragment) {
+                        navController.navigate(action)
+                    }
+                }
+            }
+        }
+    }
 
     override val bindLayout: (LayoutInflater, ViewGroup?, Boolean) -> FragmentHomeBinding
         get() = FragmentHomeBinding::inflate
@@ -63,6 +76,8 @@ class HomeFragment : BaseFragment<FragmentHomeBinding>() {
             viewModel.effect.asLiveData(Dispatchers.IO).observe(viewLifecycleOwner) {
                 when (it) {
                     is HomeContract.Effect.ShowError -> {
+                        if (adapter.currentList.size > 0) return@observe
+
                         binding.prLoading.isVisible = false
                         visibleErrorBox(true)
 
@@ -78,4 +93,8 @@ class HomeFragment : BaseFragment<FragmentHomeBinding>() {
         binding.tvErrorMessage.isVisible = isShow
         binding.btnRetry.isVisible = isShow
     }
+
+//    override fun onDestroyView() {
+//        super.onDestroyView()
+//    }
 }

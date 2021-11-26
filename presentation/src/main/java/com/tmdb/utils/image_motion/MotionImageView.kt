@@ -180,10 +180,8 @@ class MotionImageView @JvmOverloads constructor(context: Context?, attrs: Attrib
 
     private fun handleImageChange() {
         updateDrawableBounds()
-        /* Don't start a new transition if this event
-was fired during the super constructor execution.
-The view won't be ready at this time. Also,
-don't start it if this view size is still unknown. */if (mInitialized && hasBounds()) {
+
+        if (mInitialized && hasBounds()) {
             startNewTransition()
         }
     }

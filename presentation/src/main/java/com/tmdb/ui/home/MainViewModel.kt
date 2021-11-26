@@ -35,6 +35,10 @@ class MainViewModel @Inject constructor(
             is HomeContract.Event.OnFetchMovies -> {
                 fetchMovies()
             }
+            is HomeContract.Event.OnMovieItemClicked -> {
+                val item = event.movie
+                setSelectedMovie(movie = item)
+            }
         }
     }
 
@@ -60,5 +64,9 @@ class MainViewModel @Inject constructor(
                     }
                 }
         }
+    }
+
+    private fun setSelectedMovie(movie: MovieUiModel?) {
+        setState { copy(selectedMovie = movie) }
     }
 }

@@ -1,4 +1,4 @@
-package com.tmdb.ui.home
+package com.tmdb.ui.home.adapter
 
 import android.view.LayoutInflater
 import android.view.ViewGroup
