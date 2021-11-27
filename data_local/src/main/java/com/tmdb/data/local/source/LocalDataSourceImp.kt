@@ -21,9 +21,10 @@ class LocalDataSourceImp @Inject constructor(
         return movieMapper.from(movieLocalModel)
     }
 
-    override suspend fun addMovieItems(movies: List<MovieDataModel>) {
+    override suspend fun addMovieItems(movies: List<MovieDataModel>): List<MovieDataModel> {
         val movieLocalList = movieMapper.toList(movies)
-        movieDAO.insertMovieListWithGenres(movieLocalList)
+        val newMovieLocalList = movieDAO.insertMovieListWithGenres(movieLocalList)
+        return movieMapper.fromList(newMovieLocalList)
     }
 
     override suspend fun updateMovieItem(movie: MovieDataModel) {

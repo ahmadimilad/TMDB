@@ -22,9 +22,9 @@ class RepositoryImp @Inject constructor(
             }
 
             try {
-                val data = remoteDataSource.getMovies(page)
-                localDataSource.addMovieItems(data)
-                emit(Resource.Success(movieMapper.fromList(data)))
+                val remoteData = remoteDataSource.getMovies(page)
+                val localData = localDataSource.addMovieItems(remoteData)
+                emit(Resource.Success(movieMapper.fromList(localData)))
             } catch (ex: Exception) {
                 emit(Resource.Error(ex))
             }
