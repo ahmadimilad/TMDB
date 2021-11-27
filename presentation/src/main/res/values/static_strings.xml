@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="image_path_template" formatted="false">https://image.tmdb.org/t/p/w200%s</string>
+    <string name="original_image_path_template" formatted="false">https://image.tmdb.org/t/p/original%s</string>
+    <string name="dot">.</string>
+
+</resources>

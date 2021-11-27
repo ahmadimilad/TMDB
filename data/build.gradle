@@ -1,0 +1,53 @@
+plugins {
+    id 'com.android.library'
+    id 'kotlin-android'
+}
+
+android {
+    compileSdk android_CompileSdk_version
+
+    defaultConfig {
+        minSdk android_MinSdk_version
+        targetSdk android_TargetSdk_version
+
+        testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
+        consumerProguardFiles "consumer-rules.pro"
+    }
+
+    buildTypes {
+        debug
+        release
+    }
+
+    compileOptions {
+        sourceCompatibility JavaVersion.VERSION_1_8
+        targetCompatibility JavaVersion.VERSION_1_8
+    }
+
+    testOptions {
+        unitTests.returnDefaultValues = true
+    }
+
+    android.sourceSets.all {
+        java.srcDir("src/$name/kotlin")
+    }
+}
+
+dependencies {
+    implementation project(path: ':domain')
+
+    //Test : Unit Test
+    testImplementation "junit:junit:$jUnit_version"
+    testImplementation "org.mockito:mockito-core:$mockito_version"
+    androidTestImplementation "androidx.test.ext:junit-ktx:$jUnitExt_version"
+
+    //Coroutines
+    implementation "org.jetbrains.kotlinx:kotlinx-coroutines-core:$coroutines_version"
+    implementation "org.jetbrains.kotlinx:kotlinx-coroutines-android:$coroutines_version"
+
+    //javax.inject (Dependency Injection)
+    implementation "javax.inject:javax.inject:$javaxInjectVersion"
+
+    //Developer Tools
+    implementation "com.jakewharton.timber:timber:$timberـversion"
+}

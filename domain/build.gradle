@@ -1,0 +1,19 @@
+plugins {
+    id 'kotlin'
+}
+
+dependencies {
+    implementation "org.jetbrains.kotlin:kotlin-stdlib:$kotlin_version"
+
+    //javax.inject (Dependency Injection)
+    implementation "javax.inject:javax.inject:$javaxInjectVersion"
+
+    // Coroutines
+    implementation("org.jetbrains.kotlinx:kotlinx-coroutines-core:$coroutines_version") {
+        exclude group: "org.jetbrains.kotlin", module: "kotlin-stdlib"
+    }
+
+    //Test : Unit Test
+    testImplementation "junit:junit:$jUnit_version"
+    testImplementation "org.mockito:mockito-core:$mockito_version"
+}

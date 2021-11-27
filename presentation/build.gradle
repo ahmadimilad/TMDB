@@ -1,0 +1,176 @@
+plugins {
+    id 'com.android.application'
+    id 'kotlin-android'
+    id 'kotlin-kapt'
+    id 'kotlin-parcelize'
+    id 'androidx.navigation.safeargs.kotlin'
+    id 'dagger.hilt.android.plugin'
+}
+
+android {
+    compileSdk android_CompileSdk_version
+
+    defaultConfig {
+        applicationId "com.tmdb"
+        minSdk android_MinSdk_version
+        targetSdk android_TargetSdk_version
+        versionCode 1
+        versionName "1.0.0"
+
+        vectorDrawables.useSupportLibrary = true
+
+        testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
+    }
+
+    def releaseTemplate = {
+        shrinkResources true
+        minifyEnabled true
+
+        proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
+
+        if (gradle.hasProperty("localProperties.signReleaseWithDebugKey")) {
+            signingConfig signingConfigs.debug
+        }
+
+        if (gradle.hasProperty("localProperties.debuggable")) {
+            debuggable true
+        }
+    }
+
+    buildTypes {
+        debug {
+            minifyEnabled false
+            shrinkResources false
+            versionNameSuffix "-d"
+
+            buildConfigField("String", "API_BASE_URL", "\"https://api.themoviedb.org/3/\"")
+            buildConfigField("String", "API_KEY", "\"cc14691690170b2a51cd7cdcf3d34478\"")
+        }
+        release releaseTemplate >> {
+            versionNameSuffix ""
+
+            buildConfigField("String", "API_BASE_URL", "\"https://api.themoviedb.org/3/\"")
+            buildConfigField("String", "API_KEY", "\"cc14691690170b2a51cd7cdcf3d34478\"")
+        }
+    }
+
+    buildFeatures {
+        dataBinding  true
+        viewBinding  true
+    }
+
+    compileOptions {
+        sourceCompatibility JavaVersion.VERSION_1_8
+        targetCompatibility JavaVersion.VERSION_1_8
+    }
+
+    kotlinOptions {
+        jvmTarget = JavaVersion.VERSION_1_8.toString()
+    }
+
+    testOptions {
+        unitTests.returnDefaultValues = true
+        unitTests.includeAndroidResources = true
+    }
+
+    android.sourceSets.all {
+        java.srcDir("src/$name/kotlin")
+    }
+
+    splits {
+        abi {
+            enable false
+
+            reset()
+
+            include "armeabi-v7a", "arm64-v8a", "x86_64", "x86"
+        }
+    }
+}
+
+android.applicationVariants.all { variant ->
+    variant.outputs.each { output ->
+        //noinspection GrDeprecatedAPIUsage
+        def abi = output.getFilter(com.android.build.OutputFile.ABI)
+
+        if (abi != null) {
+            abi = "_$abi"
+            output.outputFileName = "TMDB-${variant.versionName}${abi}.apk"
+        } else {
+            abi = ""
+            output.outputFileName = "TMDB-${variant.versionName}.apk"
+        }
+
+        println("")
+
+        println("------ Version Info (${variant.buildType.name}${abi}) -----------------------")
+        println("Application ID = ${variant.getApplicationId()}")
+        println("versionName    = ${variant.versionName}")
+        println("versionCode    = ${variant.versionCode}")
+        println("File name      = ${output.outputFileName}")
+    }
+}
+
+dependencies {
+    implementation project(path: ':data')
+    implementation project(path: ':domain')
+    implementation project(path: ':data_remote')
+    implementation project(path: ':data_local')
+
+    //Testing
+    testImplementation "junit:junit:$jUnit_version"
+    androidTestImplementation "androidx.test.ext:junit:$jUnitExt_version"
+    androidTestImplementation "androidx.test.espresso:espresso-core:$espresso_version"
+    testImplementation "org.mockito:mockito-core:$mockito_version"
+    androidTestImplementation "org.mockito:mockito-android:$mockito_version"
+
+    //Kotlin
+    implementation "org.jetbrains.kotlin:kotlin-stdlib:$kotlin_version"
+    implementation "org.jetbrains.kotlin:kotlin-reflect:$kotlin_version"
+    implementation "androidx.core:core-ktx:$kotlinCore_version"
+
+    // Coroutines
+    implementation "org.jetbrains.kotlinx:kotlinx-coroutines-core:$coroutines_version"
+    implementation "org.jetbrains.kotlinx:kotlinx-coroutines-android:$coroutines_version"
+
+    //AndroidX
+    implementation "androidx.appcompat:appcompat:$androidX_AppCompat_version"
+    implementation "androidx.legacy:legacy-support-v4:$androidX_LegacySupport_version"
+    implementation "androidx.constraintlayout:constraintlayout:$androidX_Constraintlayout_version"
+    implementation "com.google.android.material:material:$androidX_Material_version"
+
+    //Navigation
+    implementation "androidx.navigation:navigation-fragment-ktx:$navigation_version"
+    implementation "androidx.navigation:navigation-ui-ktx:$navigation_version"
+
+    //Hilt (Dependency Injection)
+    implementation "com.google.dagger:hilt-android:$hilt_version"
+    kapt "com.google.dagger:hilt-android-compiler:$hilt_version"
+
+    //Architecture Components
+    implementation "androidx.lifecycle:lifecycle-common-java8:$arch_version"
+    implementation "androidx.lifecycle:lifecycle-livedata-ktx:$arch_version"
+    implementation "androidx.lifecycle:lifecycle-viewmodel-ktx:$arch_version"
+    implementation "androidx.lifecycle:lifecycle-runtime-ktx:$arch_version"
+
+    //Database -> Room
+    implementation "androidx.room:room-ktx:$room_version"
+    implementation "androidx.room:room-runtime:$room_version"
+    kapt "androidx.room:room-compiler:$room_version"
+
+    //Network -> Retrofit
+    implementation "com.squareup.retrofit2:retrofit:$retrofit_version"
+    implementation "com.squareup.retrofit2:converter-gson:$retrofit_version"
+
+    //Network -> OkHttp
+    implementation 'com.squareup.okhttp3:okhttp:' + okhttp_version
+    implementation 'com.squareup.okhttp3:logging-interceptor:' + okhttp_version
+
+    //Network -> Glide -> Load image + Cache + Download + ...
+    implementation "com.github.bumptech.glide:glide:$glide_version"
+    kapt "com.github.bumptech.glide:compiler:$glide_version"
+
+    //Developer Tools
+    implementation "com.jakewharton.timber:timber:$timberـversion"
+    debugImplementation "com.squareup.leakcanary:leakcanary-android:$leakcanaryـversion"
+}
