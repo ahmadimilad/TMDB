@@ -13,4 +13,8 @@ abstract class BaseRecyclerAdapter<M : Any, WB : ViewBinding, VH : BaseViewHolde
     override fun submitList(items: List<M>?) {
         super.submitList(items ?: emptyList())
     }
+
+    override fun submitList(items: List<M>?, commitCallback: Runnable?) {
+        super.submitList(items ?: emptyList(), commitCallback)
+    }
 }
