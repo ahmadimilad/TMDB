@@ -1,7 +1,7 @@
 ext {
     //Android
     android_CompileSdk_version = 31
-    android_MinSdk_version = 17
+    android_MinSdk_version = 21
     android_TargetSdk_version = 31
 
     //Kotlin

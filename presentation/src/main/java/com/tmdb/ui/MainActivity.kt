@@ -12,6 +12,5 @@ class MainActivity : BaseActivity<ActivityMainBinding>() {
         get() = ActivityMainBinding::inflate
 
     override fun prepareView(savedInstanceState: Bundle?) {
-        // do nothing
     }
 }
