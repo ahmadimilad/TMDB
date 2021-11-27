@@ -66,7 +66,9 @@ class HomeFragment : BaseFragment<FragmentHomeBinding>() {
                 }
                 is HomeContract.MoviesState.Success -> {
                     val data = state.movies
-                    adapter.submitList(data)
+                    adapter.submitList(data) {
+                        binding.rvMovies.scrollToPosition(0)
+                    }
                     binding.prLoading.isVisible = false
                 }
             }
