@@ -23,7 +23,7 @@ interface MovieDAO {
             }
         }
 
-        return movieList
+        return getMovieItems()
     }
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
