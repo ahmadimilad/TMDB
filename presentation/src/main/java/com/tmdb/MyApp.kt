@@ -1,17 +1,13 @@
 package com.tmdb
 
-import androidx.appcompat.app.AppCompatDelegate
-import androidx.multidex.MultiDexApplication
+import android.app.Application
 import dagger.hilt.android.HiltAndroidApp
 import timber.log.Timber
 
 @HiltAndroidApp
-class MyApp : MultiDexApplication() {
+class MyApp : Application() {
     override fun onCreate() {
         super.onCreate()
-
-        //Support Vector - In API less than 21
-        AppCompatDelegate.setCompatVectorFromResourcesEnabled(true)
 
         initTimber()
     }
