@@ -1,6 +1,5 @@
 package com.tmdb.ui.home
 
-import androidx.lifecycle.SavedStateHandle
 import androidx.lifecycle.viewModelScope
 import com.tmdb.base.BaseViewModel
 import com.tmdb.domain.common.Mapper
@@ -17,7 +16,6 @@ import javax.inject.Inject
 
 @HiltViewModel
 class MainViewModel @Inject constructor(
-    private val savedStateHandle: SavedStateHandle,
     private val globalErrorHandler: GlobalErrorHandler,
     private val moviesUseCase: GetMoviesUseCase,
     private val movieMapper: Mapper<MovieEntity, MovieUiModel>
