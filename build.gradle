@@ -3,7 +3,7 @@ apply from: 'dependencies.gradle'
 buildscript {
     ext {
         kotlin_version = '1.6.10'
-        navigation_version = '2.3.5'
+        navigation_version = '2.4.0'
         hilt_version = '2.40.5'
     }
 
