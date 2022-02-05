@@ -6,35 +6,35 @@ ext {
 
     //Kotlin
     kotlinCore_version = '1.7.0'
-    coroutines_version = '1.5.2'
+    coroutines_version = '1.6.0'
 
     //App dependencies
     androidX_LegacySupport_version = '1.0.0'
-    androidX_AppCompat_version = '1.4.0'
+    androidX_AppCompat_version = '1.4.1'
     androidX_RecyclerView_version = '1.1.0'
-    androidX_Constraintlayout_version = '2.1.2'
-    androidX_Material_version = '1.4.0'
+    androidX_Constraintlayout_version = '2.1.3'
+    androidX_Material_version = '1.5.0'
 
     //Testing
     jUnit_version = '4.13.2'
     jUnitExt_version = '1.1.3'
     assertJ_version = '3.15.0'
     espresso_version = '3.4.0'
-    mockito_version = '4.1.0'
+    mockito_version = '4.3.1'
     mockitoKotlin_version = '1.5.0'
 
     //Architecture Components
     arch_version = '2.4.0'
 
     //Libraries
-    room_version = '2.3.0'
+    room_version = '2.4.1'
     retrofit_version = '2.9.0'
     okhttp_version = '4.9.3'
     glide_version = '4.12.0'
 
     //Developer Libs
     timberـversion = '5.0.1'
-    leakcanaryـversion = '2.7'
+    leakcanaryـversion = '2.8.1'
 
     javaxInjectVersion = '1'
 }
